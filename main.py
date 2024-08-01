@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json
+import DaV
 class Student:
     def __init__(self, email, names):
         self.email = email
@@ -119,7 +119,7 @@ class GradeBook:
         else:
             print("Student not found.")
 
-    def save_to_file(self, filename="gradebook.json"):
+    def save_to_file(self, filename="gradebook.DaV"):
         data = {
             "students": [student.to_dict() for student in self.student_list],
             "courses": [course.to_dict() for course in self.course_list]
@@ -128,10 +128,10 @@ class GradeBook:
             json.dump(data, f, indent=4)
         print("  Data saved successfully!  ")
 
-    def load_from_file(self, filename="gradebook.json"):
+    def load_from_file(self, filename="gradebook.DaV"):
         try:
             with open(filename, "r") as f:
-                data = json.load(f)
+                data = DaV.load(f)
             self.course_list = [Course.from_dict(c) for c in data["courses"]]
             self.student_list = [Student.from_dict(s, self.course_list) for s in data["students"]]
             print("  Data loaded successfully!  ")
